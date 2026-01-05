@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-
+.gitignore 
 # Environment Variables (CRITICAL: Keeps your Gmail pass safe)
 .env
 .env.local
