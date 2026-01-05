@@ -117,10 +117,16 @@ const login = async (req, res) => {
   }
 };
 const logout = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
+  });
+
   res.status(200).json({
     success: true,
-    message: "Logged Out Succesfully",
+    message: "Logged Out Successfully",
   });
 };
 
