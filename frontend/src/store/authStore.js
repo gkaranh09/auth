@@ -65,17 +65,18 @@ export const useAuthStore = create((set) => ({
       console.log(response);
 
       set({
-        isLoading: true,
         user: response.data.user,
         error: null,
         isLoading: false,
         isAuthenticated: true,
       });
     } catch (error) {
+      console.log(error.response?.data?.message);
       set({
         error: error.response?.data?.message || "Error in Login",
         isLoading: false,
       });
+      throw error;
     }
   },
   logout: async () => {
@@ -112,6 +113,7 @@ export const useAuthStore = create((set) => ({
         user: null,
         error: error.response?.data?.message || "Error checking auth",
       });
+      throw error;
     }
   },
 
