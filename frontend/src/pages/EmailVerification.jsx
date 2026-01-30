@@ -8,18 +8,24 @@ const EmailVerification = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-  const { error, isLoading, verifyEmail } = useAuthStore();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { error, isLoading, verifyEmail, checkAuth } = useAuthStore();
+  const submitCode = async () => {
     const verificationCode = code.join("");
+
     try {
+      if (isLoading) return;
       await verifyEmail(verificationCode);
-      navigate("/");
-      toast.success("Email Verified");
+      await checkAuth();
+      toast.success("Email Verified! Redirecting...");
+
+      setTimeout(() => navigate("/", { replace: true }), 1000);
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    submitCode();
   };
 
   const handleChange = (index, value) => {
@@ -49,7 +55,7 @@ const EmailVerification = () => {
   };
   useEffect(() => {
     if (code.every((digit) => digit !== "")) {
-      handleSubmit(new Event("submit"));
+      submitCode();
     }
   }, [code]);
   useEffect(() => {

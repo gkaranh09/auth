@@ -44,13 +44,15 @@ const Login = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <Input
             icon={Lock}
-            type="text"
+            type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <div className="flex items-center mb-6">
             <Link

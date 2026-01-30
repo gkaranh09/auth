@@ -111,7 +111,7 @@ export const useAuthStore = create((set) => ({
         isCheckingAuth: false,
         isAuthenticated: false,
         user: null,
-        error: error.response?.data?.message || "Error checking auth",
+        // error: error.response?.data?.message || "Error checking auth",
       });
       throw error;
     }
