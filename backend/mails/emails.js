@@ -6,18 +6,11 @@ import {
   PASSWORD_RESET_SUCCESS_TEMPLATE,
 } from "./emailTemplates.js";
 
-/**
- * Universal helper function to send emails via EmailJS.
- * This assumes your EmailJS Template (the one with ID in .env) has 3 variables:
- * 1. {{user_email}}  - The recipient's email
- * 2. {{subject}}     - The email subject line
- * 3. {{{html_message}}} - The full HTML content (note the TRIPLE curly braces in dashboard)
- */
 const sendEmail = async (to, subject, htmlContent) => {
   try {
     const response = await EMAIL_CLIENT.send(
       process.env.EMAILJS_SERVICE_ID,
-      process.env.EMAILJS_TEMPLATE_ID, // Ensure this ID is in your .env file
+      process.env.EMAILJS_TEMPLATE_ID,
       {
         user_email: to,
         subject: subject,
